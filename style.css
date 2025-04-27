@@ -1,5 +1,12 @@
 html,
 body {
-	margin: 0;
-	padding: 0;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+/* Center the canvas in the page */
+canvas {
+  display: block;
+  margin: 0 auto;
 }
