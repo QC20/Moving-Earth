@@ -3,15 +3,30 @@ let azimuthOffset = 0;
 let diameter, r, centreX, centreY, radius;
 
 function setup() {
-  createCanvas(800, 800);
+  // Create a canvas that fits the window size while maintaining aspect ratio
+  let size = min(windowWidth, windowHeight) * 0.95; // Use 95% of the smaller dimension
+  createCanvas(size, size);
   colorMode(HSB, 1);
   noStroke();
   
+  // Recalculate values based on the canvas size
   diameter = width / n;
   r = diameter / 2;
   centreX = width / 2;
   centreY = centreX;
   radius = 3;
+}
+
+function windowResized() {
+  // Resize canvas when window is resized
+  let size = min(windowWidth, windowHeight) * 0.95;
+  resizeCanvas(size, size);
+  
+  // Recalculate values
+  diameter = width / n;
+  r = diameter / 2;
+  centreX = width / 2;
+  centreY = centreX;
 }
 
 function draw() {
