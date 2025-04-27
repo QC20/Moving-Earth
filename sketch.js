@@ -1,11 +1,14 @@
 let n = 75;
 let azimuthOffset = 0;
 let diameter, r, centreX, centreY, radius;
+let earthCanvas;
 
 function setup() {
   // Create a canvas that fits the window size while maintaining aspect ratio
   let size = min(windowWidth, windowHeight) * 0.95; // Use 95% of the smaller dimension
-  createCanvas(size, size);
+  earthCanvas = createCanvas(size, size);
+  earthCanvas.parent('earth-container'); // Place canvas inside the container
+  
   colorMode(HSB, 1);
   noStroke();
   

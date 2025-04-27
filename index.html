@@ -8,11 +8,23 @@
     <!-- Load p5.js from CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.1/p5.min.js"></script>
     
-    <!-- Link to your stylesheet -->
+    <!-- Link to stylesheets -->
     <link rel="stylesheet" type="text/css" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
   </head>
   <body>
-    <!-- Load your sketch file -->
+    <!-- Earth visualization container -->
+    <div id="earth-container">
+      <!-- P5.js will create canvas here -->
+    </div>
+    
+    <!-- Credit link container -->
+    <div id="credit-container">
+      <canvas id="credit-canvas"></canvas>
+    </div>
+    
+    <!-- Load sketch files -->
     <script src="sketch.js"></script>
+    <script src="credit.js"></script>
   </body>
 </html>
