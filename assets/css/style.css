@@ -1,0 +1,62 @@
+/**
+ * Global styles and layout
+ */
+ html,
+ body {
+   margin: 0;
+   padding: 0;
+   overflow: hidden;
+   background-color: black;
+   font-family: 'Poppins', Arial, sans-serif;
+ }
+ 
+ /**
+  * Earth container - full screen base layer
+  * Holds the p5.js earth visualization
+  */
+ #earth-container {
+   width: 100%;
+   height: 100%;
+   position: absolute;
+   top: 0;
+   left: 0;
+   z-index: 1;
+ }
+ 
+ /**
+  * Centering the p5.js canvas
+  * Ensures the earth visualization is centered regardless of viewport size
+  */
+ #earth-container canvas {
+   display: block;
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+ }
+ 
+ /**
+  * Credit container - overlay layer
+  * Spans the entire viewport but positioned above the earth
+  */
+ #credit-container {
+   position: absolute;
+   right: 0;
+   bottom: 0;
+   width: 100%;
+   height: 100%;
+   pointer-events: none; /* Allow clicks to pass through to earth */
+   z-index: 2;
+ }
+ 
+ /**
+  * Credit canvas - receives interactions
+  * While its container is transparent to clicks, the canvas itself needs
+  * to receive pointer events for the interactive credit text
+  */
+ #credit-canvas {
+   display: block;
+   width: 100%;
+   height: 100%;
+   pointer-events: auto; /* Enable pointer events specifically for this element */
+ }
