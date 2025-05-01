@@ -1,5 +1,5 @@
 /**
- * EarthViz.js - Interactive Earth Visualization using p5.js
+ * sketch.js - Interactive Earth Visualization using p5.js
  * 
  * This file implements a sphere visualization that responds to mouse movement,
  * creating an interactive "Earth" effect with dynamically generated noise patterns.
@@ -15,6 +15,10 @@ let centreX, centreY;     // Center coordinates of the visualization
 let radius = 3;           // Base radius for noise calculation
 let earthCanvas;          // Reference to the p5.js canvas
 
+// Mouse tracking backup (in case mouse isn't captured)
+let lastMouseX = 0;
+let lastMouseY = 0;
+
 /**
  * P5.js setup function - runs once at the beginning
  * Initializes the canvas and sets up initial parameters
@@ -29,6 +33,10 @@ function setup() {
   // Set color mode to HSB (Hue, Saturation, Brightness) with normalized values
   colorMode(HSB, 1);
   noStroke();
+  
+  // Initialize mouse position to center
+  lastMouseX = width / 2;
+  lastMouseY = height / 2;
   
   // Calculate visualization parameters based on canvas size
   recalculateParameters();
@@ -59,13 +67,26 @@ function windowResized() {
 }
 
 /**
+ * P5.js mouseMoved function - update our stored mouse coordinates
+ */
+function mouseMoved() {
+  lastMouseX = mouseX;
+  lastMouseY = mouseY;
+  return false; // To ensure the event is not consumed
+}
+
+/**
  * P5.js draw function - runs every animation frame
  * Renders the Earth visualization with dynamic response to mouse position
  */
 function draw() {
+  // Use last known mouse position if current position is invalid
+  let currentMouseX = (mouseX > 0 && mouseX < width) ? mouseX : lastMouseX;
+  let currentMouseY = (mouseY > 0 && mouseY < height) ? mouseY : lastMouseY;
+  
   // Update azimuth offset based on mouse X position
   // This creates rotation effect when moving mouse horizontally
-  azimuthOffset += map(mouseX, 0, width, -1, 1) * 0.05;
+  azimuthOffset += map(currentMouseX, 0, width, -1, 1) * 0.05;
   
   // Clear background to black each frame
   background(0);
@@ -82,7 +103,7 @@ function draw() {
       let inclination = map(j, 0, n-1, 0, PI);
       
       // Skip points outside the circular area (creates sphere boundary)
-      if(x * x + y * y > width/2 * (width/2)) {
+      if(x * x + y * y > (width/2) * (width/2)) {
         continue;
       }
       
@@ -107,7 +128,7 @@ function draw() {
       
       // Apply mouse Y-controlled exponent to create contrast variation
       // Moving mouse vertically changes the terrain contrast
-      ns = pow(ns, map(mouseY, 0, height, 5, 0));
+      ns = pow(ns, map(currentMouseY, 0, height, 5, 0.5));
 
       // Set fill color based on noise value (white to black)
       fill(0, 0, 1 - ns);
